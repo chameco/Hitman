@@ -2,7 +2,8 @@
   (:use [hiccup.core])
   (:require [clojure.java.io :as io]
             [clojure.string :as string]
-            [instaparse.core :as insta])
+            [instaparse.core :as insta]
+            [me.raynes.fs :as fs])
   (:gen-class))
 
 (def parse-md
@@ -48,7 +49,7 @@
                                (if groups (func (drop 1 groups)))))))]
     (if (nil? res) s res)))
 
-(defn output-html [blocks]
+(defn- output-html [blocks]
   (reduce str
           (for [b blocks]
             (case (first b)
@@ -59,7 +60,7 @@
               :Rule (html [:hr])
               :Paragraph (html [:p (apply str (map parse-span (drop 1 b)))])))))
 
-(defn -main
-  [& args]
-  ;; work around dangerous default behaviour in Clojure
-  (alter-var-root #'*read-eval* (constantly false)))
+(def markdown-to-html (comp output-html parse-md))
+
+(defn -main [path & args]
+  (spit (str (fs/base-name path true) ".html") (markdown-to-html (slurp path))))

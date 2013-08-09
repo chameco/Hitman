@@ -1,35 +1,30 @@
-# hitman
+Hitman
+======
 
-FIXME: description
+Hitman is a Markdown parser, currently implemented in 64 lines of Clojure using [Instaparse](https://github.com/Engelberg/instaparse) and [Hiccup](https://github.com/weavejester/hiccup). There are a few features of Markdown that aren't yet supported (such as reference-style links and images, and Atx-style headers), but it generally works reasonably well. Obviously, there are some quirks to work out, but it's usable in its current state. If nothing else, I hope people can learn a bit about the fantastic Instaparse by looking at the code, as that was my own primary motivation for creating this.
 
-## Installation
+Installation
+------
 
-Download from http://example.com/FIXME.
+`git clone git@github.com:chameco/Hitman.git`
 
-## Usage
+Usage
+-----
 
-FIXME: explanation
+You can either run in place using Leiningen, or create a jar. You know the drill folks.
 
-    $ java -jar hitman-0.1.0-standalone.jar [args]
+    $ lein run test.txt
 
-## Options
+will write output to `test.html`. Another option is
 
-FIXME: listing of options this app accepts.
+    $ lein uberjar
+    $ java -jar target/hitman-0.1.0-standalone.jar test.txt
 
-## Examples
+If you're going to use it as a library, just call `(markdown-to-html *string*)`.
 
-...
+License
+-----
 
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2013 FIXME
+Copyright © 2013 Samuel Breese
 
 Distributed under the Eclipse Public License, the same as Clojure.
